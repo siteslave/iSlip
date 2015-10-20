@@ -1,0 +1,53 @@
+extends layout
+
+block scripts
+    script(src="/js/departments.js")
+
+block content
+    ul.breadcrumb
+        li
+            a(href="/") หน้าหลัก
+        li.active ข้อมูลแผนก
+
+    .panel.panel-default
+        .panel-body
+            .row
+                .col-md-7
+                    input(type="hidden", value="")#txtDepartmentId
+                    input(type="text", placeholder="ค้นหา...").form-control#txtQuery
+                .col-md-5
+                    button.btn.btn-default.btn-raised#btnSearch
+                        i.fa.fa-search
+                        | &nbsp; ค้นหา
+                    .btn-group.pull-right
+                        button.btn.btn-primary#btnNew(type="button", data-toggle="tooltip", data-placement="top", data-original-title="เพิ่มรายการ")
+                            i.fa.fa-plus
+                        button.btn.btn-default(type="button", data-toggle="tooltip", data-placement="top", data-original-title="รีเฟรชรายการใหม่")#btnRefresh
+                            i.fa.fa-refresh
+
+    .panel.panel-default
+        .panel-body
+            table.table.table-striped.table-hover#tblList
+                thead
+                    tr
+                        th #
+                        th รายการ
+                        th
+                tbody
+
+    .modal.fade(tabindex="-1", role="dialog", data-backdrop="static")#mdlNew
+        .modal-dialog(role="document")
+            .modal-content
+                .modal-header
+                    button(type="button", data-dismiss="modal", aria-label="Close").close
+                        span(aria-hidden="true") &times;
+                    h4.modal-title
+                        i.fa.fa-user-plus
+                        | &nbsp;เพิ่มแผนก (Department)
+                    br
+                .modal-body
+                    input(type="text", placeholder="แผนก...").form-control#txtDepartmentName
+
+                .modal-footer
+                    button.btn.btn-primary#btnSave บันทึก
+                    button.btn.btn-default(data-dismiss="modal") ยกเลิก

@@ -1,0 +1,5 @@
+.idea
+.Ds_Store
+node_modules
+public/vendor
+*.sql

@@ -1,0 +1,141 @@
+doctype html
+html
+  head
+    title โปรแกรมบันทึกสลิปเงินเดือน (Pay Slip) : #{title}
+    //- link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material.css")
+    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material-fullpalette.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/ripples.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/roboto.css")
+    link(rel="stylesheet", href="/vendor/font-awesome/css/font-awesome.min.css")
+    link(rel="stylesheet", href="/vendor/nprogress/nprogress.css")
+    link(rel='stylesheet', href='/css/style.css')
+      
+    script(src="/vendor/jquery/dist/jquery.min.js")  
+    script(src="/vendor/bootstrap/dist/js/bootstrap.min.js")  
+    script(src="/vendor/bootstrap-material-design/dist/js/material.min.js")
+    script(src="/vendor/bootstrap-material-design/dist/js/ripples.min.js")
+    script(src="/vendor/lodash/lodash.min.js")
+    script(src="/vendor/moment/min/moment-with-locales.min.js")
+    script(src="/vendor/nprogress/nprogress.js")
+      
+    block scripts
+  body
+    .navbar.navbar-default
+      .navbar-header
+        button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-responsive-collapse")
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand 
+          i.fa.fa-shopping-cart
+          | &nbsp; โปรแกรมบันทึกสลิปเงินเดือน (iSlip)
+      .navbar-collapse.collapse.navbar-responsive-collapse
+
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a(href="#", data-toggle="dropdown", data-target="#").dropdown-toggle
+              i.fa.fa-bars
+            ul.dropdown-menu
+              li
+                a(href="#")
+                  i.fa.fa-key.fa-fw
+                  | &nbsp; เปลี่ยนรหัสผ่าน
+              li.divider
+              li
+                a(href="#")
+                  i.fa.fa-sign-out.fa-fw
+                  | &nbsp; ออกจากโปรแกรม
+
+    .container
+      .row
+        .col-md-3(style="padding-top: 5px;")
+          .panel.panel-primary
+            .panel-heading
+              h3.panel-title
+                i.fa.fa-th-list
+                | &nbsp; เมนูหลัก
+            .panel-body
+              ul.nav.nav-pills.nav-stacked
+                if activeMenu == 0
+                  li.active
+                    a(href="/admin")
+                      i.fa.fa-fw.fa-home
+                      | &nbsp; หน้าหลัก
+                else
+                  li
+                    a(href="/admin")
+                      i.fa.fa-fw.fa-home
+                      | &nbsp; หน้าหลัก
+                if activeMenu == 1
+                  li.active
+                    a(href="/admin/slip")
+                      i.fa.fa-fw.fa-shopping-cart
+                      | &nbsp; บันทึกเงินเดือน
+                else
+                  li
+                    a(href="/admin/slip")
+                      i.fa.fa-fw.fa-shopping-cart
+                      | &nbsp; บันทึกเงินเดือน
+                if activeMenu == 2
+                  li.active
+                    a(href="/admin/employees")
+                      i.fa.fa-fw.fa-users
+                      | &nbsp; ข้อมูลพนักงาน
+                else
+                  li
+                    a(href="/admin/employees")
+                      i.fa.fa-fw.fa-users
+                      | &nbsp; ข้อมูลพนักงาน
+                if activeMenu == 3
+                  li.active
+                    a(href="/admin/departments")
+                      i.fa.fa-fw.fa-cubes
+                      | &nbsp; ข้อมูลแผนก
+                else
+                  li
+                    a(href="/admin/departments")
+                     i.fa.fa-fw.fa-cubes
+                     | &nbsp; ข้อมูลแผนก
+                if activeMenu == 4
+                  li.active
+                    a(href="/admin/positions")
+                     i.fa.fa-fw.fa-fire
+                     | &nbsp; ข้อมูลตำแหน่ง
+                else
+                  li
+                    a(href="/admin/positions")
+                     i.fa.fa-fw.fa-fire
+                     | &nbsp; ข้อมูลตำแหน่ง
+                if activeMenu == 5
+                  li.active
+                    a(href="/admin/banks")
+                      i.fa.fa-fw.fa-google-wallet
+                      | &nbsp; ข้อมูลธนาคาร
+                else
+                  li
+                    a(href="/admin/banks")
+                      i.fa.fa-fw.fa-google-wallet
+                      | &nbsp; ข้อมูลธนาคาร
+                if activeMenu == 6
+                  li.active
+                    a(href="/admin/items/receive")
+                      i.fa.fa-fw.fa-money
+                      | &nbsp; ข้อมูลรายรับ
+                else
+                  li
+                    a(href="/admin/items/receive")
+                      i.fa.fa-fw.fa-money
+                      | &nbsp; ข้อมูลรายรับ
+                if activeMenu == 7
+                  li.active
+                    a(href="/admin/items/pay")
+                      i.fa.fa-fw.fa-shopping-cart
+                      | &nbsp; ข้อมูลรายจ่าย
+                else
+                  li
+                    a(href="/admin/items/pay")
+                      i.fa.fa-fw.fa-shopping-cart
+                      | &nbsp; ข้อมูลรายจ่าย
+        .col-md-9
+          block content

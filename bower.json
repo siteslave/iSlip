@@ -1,0 +1,33 @@
+{
+  "name": "payslip",
+  "version": "0.0.1",
+  "description": "Pay Slip",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "pay",
+    "slip"
+  ],
+  "authors": [
+    "Satit Rianpit <rianpit@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/siteslave/payslip",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "font-awesome": "~4.4.0",
+    "bootstrap-material-design": "~0.3.0",
+    "bootstrap": "~3.3.5",
+    "lodash": "~3.10.1",
+    "moment": "~2.10.6",
+    "nprogress": "~0.2.0"
+  }
+}

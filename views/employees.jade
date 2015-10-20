@@ -1,0 +1,97 @@
+extends layout
+
+block scripts
+  script(src="/js/employees.js")
+
+block content
+  ul.breadcrumb
+    li
+      a(href="/") หน้าหลัก
+    li.active ข้อมูลพนักงาน
+
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-md-3
+          input(type="text", placeholder="ค้นหา...").form-control#txtQuery
+        .col-md-2
+          button.btn.btn-sm.btn-default.btn-raised#btnSearch
+            i.fa.fa-search
+        .col-md-4
+          select.form-control#slDepartment
+            option(value="") ทั้งหมด...
+            for d in data.departments
+              option(value="#{d.department_id}") #{d.department_name}
+        .col-md-3
+          .btn-group.pull-right
+            button.btn.btn-sm.btn-primary#btnNew(type="button", data-toggle="tooltip", data-placement="top", data-original-title="เพิ่มรายการ")
+              i.fa.fa-plus
+            button.btn.btn-sm.btn-default(type="button", data-toggle="tooltip", data-placement="top", data-original-title="รีเฟรชรายการใหม่")#btnRefresh
+              i.fa.fa-refresh
+
+  .panel.panel-default
+    .panel-body
+      table.table.table-striped.table-hover#tblList
+        thead
+          tr
+            th #
+            th เลขบัตรประชาชน
+            th ชื่อ - สกุล
+            th ตำแหน่ง
+            th แผนก
+            //- th ธนาคาร
+            th
+        tbody
+
+  .modal.fade(tabindex="-1", role="dialog", data-backdrop="static")#mdlNew
+    .modal-dialog(role="document")
+      .modal-content
+        .modal-header
+          button(type="button", data-dismiss="modal", aria-label="Close").close
+            span(aria-hidden="true") &times;
+          h4.modal-title
+            i.fa.fa-user-plus
+            | &nbsp เพิ่มพนักงาน
+          br
+        .modal-body
+          input(type="hidden", value="")#txtId
+          .row
+            .col-md-6
+              .form-group
+                label เลขบัตรประชาชน
+                input(type="text").form-control#txtCid
+            .col-md-6
+              .form-group
+                label ชื่อ-สกุล
+                input(type="text").form-control#txtFullName
+          .row 
+            .col-md-6
+              .form-group
+                label ตำแหน่ง
+                select.form-control#slPosition
+                  option(value="") กรุณาเลือกตำแหน่ง...
+                  for p in data.positions 
+                    option(value="#{p.position_id}") #{p.position_name}
+            .col-md-6
+              .form-group
+                label แผนก
+                select.form-control#slNewDepartment
+                  option(value="") กรุณาเลือกแผนก...
+                  for d in data.departments
+                    option(value="#{d.department_id}") #{d.department_name}
+          .row 
+            .col-md-6
+              .form-group
+                label ธนาคาร
+                select.form-control#slBank
+                  option(value="") กรุณาเลือกธนาคาร...
+                  for b in data.banks 
+                    option(value="#{b.bank_id}") #{b.bank_name}
+            .col-md-6
+              .form-group
+                label เลขที่บัญชี
+                input(type="text").form-control#txtAccountNo
+
+        .modal-footer
+          button.btn.btn-primary#btnSave บันทึก
+          button.btn.btn-default(data-dismiss="modal") ยกเลิก
