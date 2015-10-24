@@ -2,182 +2,62 @@ extends layout
 
 block scripts
   script(src="/js/slips.js")
-    
 block content
   ul.breadcrumb
     li 
       a(href="/") หน้าหลัก
-    li.active บันทึกเงินเดือน
+    li.active สลิปเงินเดือน
 
-  .row
-    .col-md-9
-      .panel.panel-default
-        .panel-heading
-          h3.panel-title 
-            i.fa.fa-user-plus
-            | &nbsp; ข้อมูลพนักงาน
-        .panel-body
-          input(type="hidden")#txtId
-          div#divInfo
-            .row 
-              .col-md-6
-                strong เลขบัตรประชาชน
-                | &nbsp;
-                span#txtCid.text-primary
-              .col-md-6
-                strong ชื่อ - สกุล
-                | &nbsp;
-                span#txtFullname.text-primary
-            .row 
-              .col-md-6
-                strong ตำแหน่ง
-                | &nbsp;
-                span#txtPosition.text-primary
-              .col-md-6
-                strong แผนก
-                | &nbsp;
-                span#txtDepartment.text-primary
-            .row 
-              .col-md-6
-                strong ธนาคาร
-                | &nbsp;
-                span#txtBank.text-danger
-              .col-md-6
-                strong เลขที่บัญชี
-                | &nbsp;
-                span#txtAccount.text-danger
-                      
-        .panel-footer(style="padding: 5px;")
-          button.btn.btn-primary.btn-sm(data-toggle="modal", data-target="#mdlSearch", type="button")
-            i.fa.fa-user-plus
-    .col-md-3
-      .panel.panel-default
-        .panel-body
-
-          h4 รวมรับ (บาท)
-          span.pull-right
-            h3
-              span.text-danger
-                | 25,000.00
-
-  .row
-    .col-md-12
-      .panel.panel-success
-        .panel-heading
-          h3.panel-title
-            i.fa.fa-edit
-            | &nbsp; รายได้
-        .panel-body
-          table.table.table-striped
-            thead
-              tr
-                th #
-                th รายการ
-                th บาท
-                th
-            tbody
-              tr
-                td 1
-                td เงินเดือน และ เงินประจำตำแหน่ง
-                td 26,000.00
-                td
-                  button.btn.btn-sm.btn-danger
-                    i.fa.fa-trash-o
-            tfoot
-              tr
-                td(colspan="2", style="text-align: right;")
-                  strong รวม
-                td
-                  strong 26,000.00
-                td &nbsp;
-
-        .panel-footer(style="padding: 5px;")
-          button.btn.btn-primary.btn-sm(data-toggle="modal", data-target="#mdlAddPayment", type="button")
-            i.fa.fa-plus
-            | &nbsp;เพิ่ม
-  .row
-    .col-md-12
-      .panel.panel-danger
-        .panel-heading
-          h3.panel-title
-            i.fa.fa-edit
-            | &nbsp; รายจ่าย
-        .panel-body
-          table.table.table-striped
-            thead
-              tr
-                th #
-                th รายการ
-                th บาท
-                th
-            tbody
-              tr
-                td 1
-                td หักประกันสังคม
-                td 8,000.00
-                td
-                  button.btn.btn-sm.btn-danger
-                    i.fa.fa-trash-o
-              tr
-                td 2
-                td หักสหกรณ์ออมทรัพย์ สสจ.มหาสารคาม
-                td 26,000.00
-                td
-                  button.btn.btn-sm.btn-danger
-                    i.fa.fa-trash-o
-            tfoot
-              tr
-                td(colspan="2", style="text-align: right;")
-                  strong รวม
-                td
-                  strong 26,000.00
-                td &nbsp;
-        .panel-footer(style="padding: 5px;")
-          button.btn.btn-primary.btn-sm(data-toggle="modal", data-target="#mdlAddReceive", type="button")
-            i.fa.fa-plus
-            | &nbsp;เพิ่ม
-
-  .row
-    .col-md-12
-      .btn-group.pull-right
-        button.btn.btn-primary.btn-lg
-          i.fa.fa-save
-          | &nbsp; บันทึก
-        button.btn.btn-default.btn-lg
-          i.fa.fa-refresh
-          | &nbsp; ยกเลิก/เริ่มใหม่
-
-  .modal.fade(tabindex="-1", role="dialog")#mdlSearch
-    .modal-dialog.modal-lg(role="document")
-      .modal-content
-        .modal-header
-          button(type="button", data-dismiss="modal", aria-label="Close").close
-            span(aria-hidden="true") &times;
-          h4.modal-title
-           i.fa.fa-user-plus
-           | &nbsp;ค้นหาพนักงาน
-          br
-        .modal-body
-          .panel.panel-default
-            .panel-body
-              .input-group
-                input(type="text", placeholder="ชื่อ พนักงาน...")#txtQueryEmployee.form-control
-                span.input-group-btn
-                  button.btn.btn-sm.btn-primary(type="button")#btnSearch
-                    i.fa.fa-search
-                    | &nbsp; ค้นหา
-          .panel.panel-default
-            .panel-body
-              table.table.table-striped.table-hover#tblList
-                thead
-                  tr
-                    th ชื่อ - สกุล
-                    th ตำแหน่ง
-                    th แผนก
-                    th
-                tbody
-                  tr 
-                    td(colspan="4") กรุณาค้นหา..
-
-        .modal-footer
-          button.btn.btn-default(data-dismiss="modal") Close
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-md-1(style="text-align: right;")
+          label เดือน
+        .col-md-3
+          select.form-control#slMonth
+            option(value="01") มกราคม
+            option(value="02") กุมภาพันธุ์
+            option(value="03") มีนาคม
+            option(value="04") เมษายน
+            option(value="05") พฤษภาคม
+            option(value="06") มิถุนายน
+            option(value="07") กรกฎาคม
+            option(value="08") สิงหาคม
+            option(value="09") กันยายน
+            option(value="10") ตุลาคม
+            option(value="11") พฤศจิกายน
+            option(value="12") ธันวาคม
+        .col-md-1(style="text-align: right;")
+          label.control-label ปี
+        .col-md-2
+          select.form-control#slYear
+            option(value="2558") 2558
+            option(value="2559") 2559
+            option(value="2560") 2560
+            option(value="2561") 2561
+            option(value="2562") 2562
+        .col-md-1 
+          button.btn.btn-default.btn-sm.btn-raised#btnSearch
+            i.fa.fa-search
+            | &nbsp; ค้นหา
+        .col-md-4
+          .pull-right
+            a.btn.btn-sm.btn-success(href="/admin/slip/new")
+              i.fa.fa-plus 
+              | &nbsp; เพิ่ม
+  
+  .panel.panel-default
+    .panel-body
+      table.table.table-striped#tblList
+        thead
+          tr 
+            th #
+            th ชื่อ-สกุล
+            th ตำแหน่ง
+            th(style="text-align: right;") รายรับ
+            th(style="text-align: right;") รายจ่าย
+            th(style="text-align: right;") คงเหลือ
+            th(style="text-align: center;")
+        tbody
+          tr 
+            td(colspan="7") ...

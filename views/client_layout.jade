@@ -1,0 +1,50 @@
+doctype html
+html
+  head
+    title โปรแกรมบันทึกสลิปเงินเดือน (Pay Slip)
+    //- link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material.css")
+    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material-fullpalette.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/ripples.min.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/roboto.css")
+    link(rel="stylesheet", href="/vendor/font-awesome/css/font-awesome.min.css")
+    link(rel="stylesheet", href="/vendor/nprogress/nprogress.css")
+    link(rel='stylesheet', href='/css/style.css')
+      
+    script(src="/vendor/jquery/dist/jquery.min.js")  
+    script(src="/vendor/bootstrap/dist/js/bootstrap.min.js")  
+    script(src="/vendor/bootstrap-material-design/dist/js/ripples.min.js")
+    script(src="/vendor/bootstrap-material-design/dist/js/material.min.js")
+    script(src="/vendor/lodash/lodash.min.js")
+    script(src="/vendor/moment/min/moment-with-locales.min.js")
+    script(src="/vendor/nprogress/nprogress.js")
+    script(src="/vendor/numeral/min/numeral.min.js")
+    
+    script.
+      $(function () {
+        $.material.init();
+        $.material.ripples();
+      });
+        
+    block scripts
+  body
+    .navbar.navbar-default
+      .navbar-header
+        button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-responsive-collapse")
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand 
+          i.fa.fa-shopping-cart
+          | &nbsp; โปรแกรมบันทึกสลิปเงินเดือน (iSlip)
+      .navbar-collapse.collapse.navbar-responsive-collapse
+        ul.nav.navbar-nav.navbar-right
+          li.dropdown
+            a(href="/users/logout")
+              i.fa.fa-sign-out
+              | &nbsp; ออก  
+        p.navbar-text.pull-right 
+          | สวัสดี, &nbsp;
+          strong #{session.fullname}
+    .container
+      block content

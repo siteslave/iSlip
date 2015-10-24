@@ -1,13 +1,29 @@
-extends layout
+extends client_layout
 
+block scripts 
+  script(src="/js/client_index.js")
+    
 block content
   ul.breadcrumb
     li 
-      a(href="#") Home
-    li.active Main Page 
+      a(href="#") หน้าหลัก
+    li.active Dashboard
       
-  .jumbotron
-    h2 ยินดีต้อนรับ
-    p ยินดีต้อนรับเข้าสู่โปรแกรมบันทึกเงินเดือน (Pay Slip)
-    p 
-      a(href="/admin/slip").btn.btn-danger.btn-lg บันทึกเงินเดือน
+  .panel.panel-primary
+    .panel-heading
+      h4.panel-title 
+        i.fa.fa-navicon
+        | &nbsp; รายการสลิปเงินเดือนย้อนหลัง
+    .panel-body
+      table.table.table-striped.table-hover#tblList
+        thead
+          tr 
+            th ปี
+            th เดือน
+            th(style="text-align: right;") รายรับ
+            th(style="text-align: right;") รายจ่าย
+            th(style="text-align: right;") คงเหลือ
+            th(style="text-align: center;")
+        tbody 
+          tr 
+            td(colspan="6") ...

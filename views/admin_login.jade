@@ -1,0 +1,40 @@
+extends login_layout
+block content
+  
+  div(style="margin-top:50px;").col-md-6.col-md-offset-3.col-sm-8.col-sm-offset-2                   
+    .panel.panel-primary
+      .panel-heading
+        .panel-title 
+          i.fa.fa-lock 
+          | &nbsp; ยินดีต้อนรับเข้าสู่โปรแกรม iSlip (Administrator)
+      div(style="padding-top:20px").panel-body
+        form.form-horizontal(role="form", action="/users/admin/login", method="post")
+          if error 
+            div.alert.alert-danger
+              button(type="button", data-dismiss="alert").close ×
+              p 
+                i.fa.fa-ban
+                | &nbsp; 
+                span #{message}
+          div(style="margin-bottom: 25px").input-group
+            span.input-group-addon
+              i.glyphicon.glyphicon-user
+            input(type="text", placeholder="ชื่อผู้ใช้งาน", name="username")#txtUsername.form-control.floating-label
+          div(style="margin-bottom: 25px").input-group
+            span.input-group-addon
+              i.glyphicon.glyphicon-lock
+            input(type="password", placeholder="รหัสผ่าน", name="password")#txtPassword.form-control.floating-label
+
+
+          div(style="margin-top:10px;").form-group
+            .col-sm-12.controls
+              button(type="submit")#btnLogin.btn.btn-warning.btn-raised
+                i.fa.fa-sign-in
+                | &nbsp; เข้าสู่ระบบ
+
+          .form-group
+            .col-md-12.control
+              div(style="border-top: 1px solid#888; padding-top:15px; font-size:85%")
+                | พัฒนาโดย ศูนย์ข้อมูล โรงพยาบาลกันทรวิชัย &nbsp; 
+                a(href="http://www.kchosp.go.th") 
+                  strong http://www.kchosp.go.th

@@ -1,0 +1,29 @@
+doctype html
+html
+  head
+    title โปรแกรมบันทึกสลิปเงินเดือน (Pay Slip) 
+    //- link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material.css")
+    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material-fullpalette.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/ripples.min.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/roboto.css")
+    link(rel="stylesheet", href="/vendor/font-awesome/css/font-awesome.min.css")
+    link(rel="stylesheet", href="/vendor/nprogress/nprogress.css")
+    link(rel='stylesheet', href='/css/style.css')
+      
+    script(src="/vendor/jquery/dist/jquery.min.js")  
+    script(src="/vendor/bootstrap/dist/js/bootstrap.min.js")  
+    script(src="/vendor/bootstrap-material-design/dist/js/ripples.min.js")
+    script(src="/vendor/bootstrap-material-design/dist/js/material.min.js")
+    script(src="/vendor/nprogress/nprogress.js")
+      
+    script.
+      $(function () {
+        $.material.init();
+        $.material.ripples();
+      });
+      
+    block scripts
+      
+  body
+    block content

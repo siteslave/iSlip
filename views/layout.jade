@@ -5,7 +5,7 @@ html
     //- link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material.css")
     link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.min.css")
     link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/material-fullpalette.css")
-    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/ripples.css")
+    link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/ripples.min.css")
     link(rel="stylesheet", href="/vendor/bootstrap-material-design/dist/css/roboto.css")
     link(rel="stylesheet", href="/vendor/font-awesome/css/font-awesome.min.css")
     link(rel="stylesheet", href="/vendor/nprogress/nprogress.css")
@@ -13,12 +13,19 @@ html
       
     script(src="/vendor/jquery/dist/jquery.min.js")  
     script(src="/vendor/bootstrap/dist/js/bootstrap.min.js")  
-    script(src="/vendor/bootstrap-material-design/dist/js/material.min.js")
     script(src="/vendor/bootstrap-material-design/dist/js/ripples.min.js")
+    script(src="/vendor/bootstrap-material-design/dist/js/material.min.js")
     script(src="/vendor/lodash/lodash.min.js")
     script(src="/vendor/moment/min/moment-with-locales.min.js")
     script(src="/vendor/nprogress/nprogress.js")
-      
+    script(src="/vendor/numeral/min/numeral.min.js")
+    
+    script.
+      $(function () {
+        $.material.init();
+        $.material.ripples();
+      });
+        
     block scripts
   body
     .navbar.navbar-default
@@ -38,12 +45,12 @@ html
               i.fa.fa-bars
             ul.dropdown-menu
               li
-                a(href="#")
+                a(href="/admin/changepass")
                   i.fa.fa-key.fa-fw
                   | &nbsp; เปลี่ยนรหัสผ่าน
               li.divider
               li
-                a(href="#")
+                a(href="/users/logout")
                   i.fa.fa-sign-out.fa-fw
                   | &nbsp; ออกจากโปรแกรม
 

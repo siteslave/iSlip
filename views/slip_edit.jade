@@ -1,0 +1,204 @@
+extends layout
+
+block scripts
+  script(src="/js/slips_edit.js")
+    
+block content
+  ul.breadcrumb
+    li 
+      a(href="/") หน้าหลัก
+    li 
+      a(href="/admin/slip") สลิปเงินเดือน
+    li.active แก้ไขเงินเดือน
+
+  input(type="hidden", value="#{data.id}")#txtSlipId
+  input(type="hidden", value="#{data.detail.smonth}")#txtMonth
+  input(type="hidden", value="#{data.detail.syear}")#txtYear
+  
+  .row
+    .col-md-9
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title 
+            i.fa.fa-user-plus
+            | &nbsp; ข้อมูลพนักงาน
+        .panel-body
+          input(type="hidden")#txtId
+          div#divInfo
+            .row 
+              .col-md-6
+                strong เลขบัตรประชาชน
+                | &nbsp;
+                span#txtCid.text-primary #{data.detail.cid}
+              .col-md-6
+                strong ชื่อ - สกุล
+                | &nbsp;
+                span#txtFullname.text-primary #{data.detail.fullname}
+            .row 
+              .col-md-6
+                strong ตำแหน่ง
+                | &nbsp;
+                span#txtPosition.text-primary #{data.detail.position_name}
+              .col-md-6
+                strong แผนก
+                | &nbsp;
+                span#txtDepartment.text-primary #{data.detail.department_name}
+            .row 
+              .col-md-6
+                strong ธนาคาร
+                | &nbsp;
+                span#txtBank.text-danger #{data.detail.bank_name}
+              .col-md-6
+                strong เลขที่บัญชี
+                | &nbsp;
+                span#txtAccount.text-danger #{data.detail.account_no}xxxx
+                      
+    .col-md-3
+      .panel.panel-default
+        .panel-body
+
+          h4 คงเหลือ (บาท)
+          span.pull-right
+            h3
+              span.text-danger#txtTotalBalance
+        
+  .panel.panel-default
+    .panel-body
+      .row
+        .col-md-1(style="text-align: right;")
+          label เดือน
+        .col-md-3
+          select.form-control.disabled(disabled="disabled")#slMonth
+            option(value="01") มกราคม
+            option(value="02") กุมภาพันธุ์
+            option(value="03") มีนาคม
+            option(value="04") เมษายน
+            option(value="05") พฤษภาคม
+            option(value="06") มิถุนายน
+            option(value="07") กรกฎาคม
+            option(value="08") สิงหาคม
+            option(value="09") กันยายน
+            option(value="10") ตุลาคม
+            option(value="11") พฤศจิกายน
+            option(value="12") ธันวาคม
+        .col-md-1(style="text-align: right;")
+          label.control-label ปี
+        .col-md-2
+          select.form-control(disabled="disabled")#slYear
+            option(value="2558") 2558
+            option(value="2559") 2559
+            option(value="2560") 2560
+            option(value="2561") 2561
+            option(value="2562") 2562
+        .col-md-5
+          .btn-group.btn-group-sm.pull-right
+            button.btn.btn-primary#btnSaveSlip
+              i.fa.fa-save
+              | &nbsp; บันทึก
+            button.btn.btn-danger#btnRemoveSlip
+              i.fa.fa-trash-o
+              | &nbsp; ลบรายการ
+  ul.nav.nav-tabs(style="margin-bottom: 15px;")
+    li(role="presentation").active 
+      a(href="#receive", data-toggle="tab")
+        i.fa.fa-credit-card
+        | &nbsp; ข้อมูลรายรับ
+    li(role="presentation") 
+      a(href="#payment", data-toggle="tab") 
+        i.fa.fa-shopping-cart
+        | &nbsp; ข้อมูลรายจ่าย
+  
+  .tab-content
+    .tab-pane.fade.in.active(role="tabpanel")#receive     
+      .panel.panel-default
+        .panel-body
+          table.table.table-striped#tblReceive
+            thead
+              tr
+                th #
+                th รายการรายรับ
+                th(style="text-align: right;") บาท
+                th
+            tbody
+            tfoot
+              tr
+                td(colspan="2", style="text-align: right;")
+                  strong รวม
+                td(style="text-align: right;")
+                  strong
+                    span.text-danger#txtTotalReceive
+                td &nbsp;
+
+        .panel-footer(style="padding: 5px;")
+          button.btn.btn-primary.btn-sm(type="button")#btnShowReceiveItems
+            i.fa.fa-plus
+            | &nbsp;เพิ่ม
+    
+    .tab-pane.fade(role="tabpanel")#payment     
+      .panel.panel-default
+        .panel-body
+          table.table.table-striped#tblPayment
+            thead
+              tr
+                th #
+                th รายการรายจ่าย
+                th(style="text-align: right;") บาท
+                th
+            tbody
+              tr 
+                td(colspan="4")
+                  span.text-muted กรุณาเลือกรายการ...
+            tfoot
+              tr
+                td(colspan="2", style="text-align: right;")
+                  strong รวม
+                td(style="text-align: right")
+                  strong
+                    span.text-danger#txtTotalPayment
+                td &nbsp;
+        .panel-footer(style="padding: 5px;")
+          button.btn.btn-primary.btn-sm(type="button")#btnShowPayItems
+            i.fa.fa-plus
+            | &nbsp;เพิ่ม
+
+  .modal.fade(role="dialog")#mdlItems
+    .modal-dialog.modal-lg(role="document")
+      .modal-content
+        .modal-header
+          button(type="button", data-dismiss="modal", aria-label="Close").close
+            span(aria-hidden="true") &times;
+          h4.modal-title
+           i.fa.fa-user-plus
+           | &nbsp;
+           span#txtActionName
+          br
+        .modal-body
+          .panel.panel-default
+            .panel-body
+              .row
+                .col-md-9
+                  .form-group#divReceiveItems
+                    label.control-label เลือกรายการ
+                    br
+                    select#slReceiveItems.form-control.col-md-12
+                      option(value="") เลือกรายการ...
+                      for r in data.receive_items
+                        option(value="#{r.item_id}") #{r.item_name}
+                  .form-group#divPayItems
+                    label.control-label เลือกรายการ
+                    br
+                    select#slPayItems.form-control.col-md-12
+                      option(value="") เลือกรายการ...
+                      for r in data.pay_items
+                        option(value="#{r.item_id}") #{r.item_name}
+                .col-md-3
+                  .input-group 
+                    label จำนวนเงิน (บาท)
+                    input(type="number").form-control#txtMoney
+
+        .modal-footer
+          button.btn.btn-primary#btnAddItem
+            i.fa.fa-save
+            | &nbsp; Save
+          | &nbsp;
+          button.btn.btn-default(data-dismiss="modal") Close
