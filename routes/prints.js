@@ -11,6 +11,7 @@ var fse = require('fs-extra');
 var gulp = require('gulp');
 var data = require('gulp-data');
 var jade = require('gulp-jade');
+var rimraf = require('rimraf');
 
 var slips = require('../models/slips');
 
@@ -66,8 +67,11 @@ router.get('/:id', function (req, res, next) {
     json.totalPayment = numeral(totalPayment).format('0,0.00');
 
     // ensure directory
-    fse.ensureDirSync('./templates');
-    fse.ensureDirSync('./public/pdf');
+    fse.ensureDirSync('./templates/html');
+    fse.ensureDirSync('./templates/pdf');
+
+    var destPath = './templates/html/' + moment().format('x');
+    fse.ensureDirSync(destPath);
 
     json.img = './img/sign.png';
     // Create pdf
@@ -77,12 +81,12 @@ router.get('/:id', function (req, res, next) {
           return json;
         }))
         .pipe(jade())
-        .pipe(gulp.dest('./templates'));
+        .pipe(gulp.dest(destPath));
         cb();
     });
 
     gulp.task('pdf', ['html'], function () {
-      var html = fs.readFileSync('./templates/slip.html', 'utf8')
+      var html = fs.readFileSync(destPath + '/slip.html', 'utf8')
       var options = {
         format: 'A4',
         footer: {
@@ -91,17 +95,20 @@ router.get('/:id', function (req, res, next) {
         }
       };
 
-      var pdfName = './public/pdf/slip-' + moment().format('x') + '.pdf';
+      var pdfName = './templates/pdf/slip-' + moment().format('x') + '.pdf';
 
       pdf.create(html, options).toFile(pdfName, function(err, resp) {
         if (err) {
           res.send({ok: false, msg: err});
         } else {
-          res.download(pdfName);
+          res.download(pdfName, function () {
+            rimraf.sync(destPath);
+            fse.removeSync(pdfName);
+          });
         }
       });
     });
-
+    // Convert html to pdf
     gulp.start('pdf');
 
   })

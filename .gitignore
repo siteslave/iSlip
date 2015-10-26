@@ -3,5 +3,6 @@
 node_modules
 public/vendor
 *.sql
-_*.*
-*.pdf
+public/pdf/*.pdf
+templates/html/*.html
+templates/pdf/*.pdf
