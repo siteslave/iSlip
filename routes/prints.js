@@ -68,6 +68,8 @@ router.get('/:id', function (req, res, next) {
     // ensure directory
     fse.ensureDirSync('./templates');
     fse.ensureDirSync('./public/pdf');
+
+    json.img = './img/sign.png';
     // Create pdf
     gulp.task('html', function (cb) {
       return gulp.src('./templates/slip.jade')
