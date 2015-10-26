@@ -7,7 +7,8 @@ html
       html, body {
       margin: 0;
       padding: 10px;
-      font-size: 12px;
+      font-size: 18px;
+      font-face: 'THSarabunNew'
       }
       div.image {
       	width:            100px;
@@ -262,7 +263,7 @@ html
             | (Pay Slip)
       tr
         td
-          .slib-box-hospital(style="width: 400px; height: 50px;")
+          .slib-box-hospital(style="width: 400px; height: 60px;")
             strong ชื่อ
             | &nbsp; #{detail.fullname}
             br
@@ -273,7 +274,7 @@ html
             | &nbsp; #{detail.department_name}
             br
         td
-          .slib-box-hospital(style="width: 250px; height: 50px;")
+          .slib-box-hospital(style="width: 250px; height: 60px;")
             strong ธนาคาร
             | &nbsp; #{detail.bank_name}
             br
@@ -294,24 +295,32 @@ html
             table.table(width="100%")
               thead
                 tr
+                  th
                   th(style="text-align: center;") รายรับ
                   th(style="width: 100px; text-align: right;") จำนวน(บาท)
               tbody
+                - var y = 0
                 for i in items
                   if i.item_type == "1"
+                    - y++
                     tr
+                      td #{y}.
                       td #{i.name}
                       td(style="text-align: right;") #{i.money}
           td(width="50%", style="padding: 5px;")
             table.table(width="100%")
               thead
                 tr
+                  th
                   th(style="text-align: center;") รายจ่าย
                   th(style="width: 100px;") จำนวน(บาท)
               tbody
+                - var x = 0
                 for i in items
                   if i.item_type == "2"
+                    - x++
                     tr
+                      td #{x}.
                       td #{i.name}
                       td(style="text-align: right;") #{i.money}
       tfoot
@@ -327,7 +336,7 @@ html
         tr 
           td(style="text-align: right;") 
             h4 คงเหลือ
-          td 
+          td
             h4 #{totalBalance} &nbsp;&nbsp; บาท
     
     div(style="text-align: center; padding: 30px;")
