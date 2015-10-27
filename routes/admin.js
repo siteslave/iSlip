@@ -342,7 +342,7 @@ router.get('/employees/all', function(req, res, next) {
 router.post('/employees', function(req, res, next) {
   var db = req.db;
   var data = req.body;
-  if (data.fullname && data.position && data.bank && data.accountNo && data.department) {
+  if (data.fullname && data.cid && data.position && data.bank && data.accountNo && data.department) {
     var employee = {};
     employee.fullname = data.fullname;
     employee.position_id = data.position;
@@ -353,12 +353,12 @@ router.post('/employees', function(req, res, next) {
 
     if (data.id) {
       // update
-      employees.checkUpdateDuplicated(db, data.id, data.fullname)
+      employees.checkUpdateDuplicated(db, data.id, data.cid)
         .then(function(total) {
           if (total) {
             res.send({
               ok: false,
-              msg: 'ชื่อพนักงานนี้มีแล้วในระบบ'
+              msg: 'มีเลขบัตรประจำตัวประชาชนนี้ ในระบบแล้ว'
             });
           } else {
             employees.update(db, data.id, employee)
@@ -376,12 +376,12 @@ router.post('/employees', function(req, res, next) {
         })
     } else {
       // insert
-      employees.checkDuplicated(db, data.fullname)
+      employees.checkDuplicated(db, data.cid)
         .then(function(total) {
           if (total) {
             res.send({
               ok: false,
-              msg: 'ชื่อพนักงานนี้มีแล้วในระบบ'
+              msg: 'มีเลขบัตรประจำตัวประชาชนนี้ ในระบบแล้ว'
             });
           } else {
             employees.save(db, employee)

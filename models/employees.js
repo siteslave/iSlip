@@ -103,11 +103,11 @@ module.exports = {
     return q.promise;
   },
 
-  checkUpdateDuplicated: function(db, id, name) {
+  checkUpdateDuplicated: function(db, id, cid) {
     var q = Q.defer();
     db('employees')
       .where({
-        fullname: name
+        cid: cid
       })
       .whereNot('employee_id', id)
       .count('* as total')
@@ -121,11 +121,11 @@ module.exports = {
     return q.promise;
   },
 
-  checkDuplicated: function(db, name) {
+  checkDuplicated: function(db, cid) {
     var q = Q.defer();
     db('employees')
       .where({
-        fullname: name
+        cid: cid
       })
       .count('* as total')
       .then(function(rows) {
