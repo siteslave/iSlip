@@ -42,8 +42,8 @@ $(function () {
           var html = '<tr>'+
           '<td>'+ v.syear +'</td>' +
           '<td>'+ strMonth +'</td>' +
-          '<td style="text-align: right;" style="text-align: right;">'+ rMoney +'</td>' +
-          '<td style="text-align: right;">'+ pMoney +'</td>';
+          '<td style="text-align: right;" style="text-align: right;" class="hidden-xs">'+ rMoney +'</td>' +
+          '<td style="text-align: right;" class="hidden-xs">'+ pMoney +'</td>';
           if (bMoney2 <= 0) {
             html += '<td style="text-align: right;"><span class="text-danger"><strong>'+ bMoney +'<strong></span></td>';
           } else {
