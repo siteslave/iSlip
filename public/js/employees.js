@@ -170,6 +170,25 @@ $(function () {
       backdrop: 'static'
     });
 
+  });
+  
+  $(document).on('click', 'button[data-action="remove"]', function (e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+    
+    if (confirm('คุณต้องการลบรายการนี้ ใช่หรือไม่?')) {
+      $.ajax({
+        url: '/admin/employees/' + id,
+        type: 'DELETE'
+      })
+      .success(function (data) {
+        alert('ลบรายการเสร็จเรียบร้อยแล้ว');
+        employees.all();
+      })
+      .error(function (xhr, status, err) {
+        alert('ไม่สามารถลบรายการได้: ' + JSON.stringify(err));
+      })
+    }
   })
 
   employees.all();

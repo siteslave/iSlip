@@ -337,7 +337,30 @@ router.get('/employees/all', function(req, res, next) {
         msg: err
       })
     })
-})
+});
+
+router.delete('/employees/:id', function (req, res, next) {
+  var db = req.db;
+  var id = req.params.id;
+  var ids = [];
+  // Get slips ids
+  employees.getSlipIds(db, id)
+    .then(function (rows) {
+      _.forEach(rows, function (v) {
+        ids.push(v.id);
+      });
+      return employees.remove(db, id);
+    })
+    .then(function () {
+      employees.removeSlipHistory(db ,)
+    })
+  employees.remove(db, id)
+    .then(function () {
+      res.send({ok: true});
+    }, function (err) {
+      res.send({ok: false, msg: err});
+    });
+});
 
 router.post('/employees', function(req, res, next) {
   var db = req.db;

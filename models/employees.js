@@ -102,6 +102,51 @@ module.exports = {
 
     return q.promise;
   },
+  
+  getSlipIds: function (db, id) {
+    var q = Q.defer();
+    db('slips')
+      .select('id')
+      .where('employee_id', id)
+      .then(function (rows) {
+        q.resolve(rows);
+      })
+      .cacth(function (err) {
+        q.reject(err);
+      });
+      
+    return q.promise;
+  },
+  
+  removeSlipHistory: function (db, id) {
+    var q = Q.defer();
+    db('slips')
+      .where('employee_id', id)
+      .delete()
+      .then(function () {
+        q.resolve();
+      })
+      .cacth(function (err) {
+        q.reject(err);
+      });
+      
+    return q.promise;
+  },
+  
+  removeSlipDetailHistory: function (db, slips) {
+    var q = Q.defer();
+    db('slip_details')
+      .whereIn('slip_id', slips)
+      .delete()
+      .then(function () {
+        q.resolve();
+      })
+      .cacth(function (err) {
+        q.reject(err);
+      });
+      
+    return q.promise;
+  },
 
   checkUpdateDuplicated: function(db, id, cid) {
     var q = Q.defer();
