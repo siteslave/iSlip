@@ -352,14 +352,19 @@ router.delete('/employees/:id', function (req, res, next) {
       return employees.remove(db, id);
     })
     .then(function () {
-      employees.removeSlipHistory(db ,)
+      return employees.removeSlipHistory(db, id);
     })
-  employees.remove(db, id)
+    .then(function () {
+      console.log(ids);
+      return employees.removeSlipDetailHistory(db, ids);
+    })
     .then(function () {
       res.send({ok: true});
     }, function (err) {
       res.send({ok: false, msg: err});
     });
+    
+    
 });
 
 router.post('/employees', function(req, res, next) {

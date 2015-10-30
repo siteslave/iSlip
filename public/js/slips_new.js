@@ -97,7 +97,7 @@ $(function () {
     var position = $(this).data('position');
     var department = $(this).data('department');
     var bank = $(this).data('bank');
-    var accountNo = $(this).data('account') + 'xxxx';
+    var accountNo = $(this).data('account');
 
     $('#txtCid').text(cid);
     $('#txtFullname').text(fullname);
@@ -117,29 +117,31 @@ $(function () {
     items.money = parseFloat($('#txtMoney').val());
     if (!items.money || items.money <= 0) {
       alert('กรุณาระบุจำนวนเงิน');
+    } else {
+      if (slip.itemType == 1) {
+        items.id = parseInt($('#slReceiveItems').val());
+        if (!items.id) {
+          alert('กรุณาเลือกรายการ');
+        } else {
+          items.name = $('#slReceiveItems > option:selected').text();
+          items.type = 1;
+          slip.items.receives.push(items);
+          $('#mdlItems').modal('hide');
+        }
+      } else {
+        items.id = $('#slPayItems').val();
+        if (!items.id) {
+          alert('กรุณาเลือกรายการ');
+        } else {
+          items.name = $('#slPayItems > option:selected').text();
+          items.type = 2;
+          slip.items.payments.push(items);
+          $('#mdlItems').modal('hide');
+        }
+      }
     }
 
-    if (slip.itemType == 1) {
-      items.id = $('#slReceiveItems').val();
-      if (!items.id) {
-        alert('กรุณาเลือกรายการ');
-      } else {
-        items.name = $('#slReceiveItems > option:selected').text();
-        items.type = 1;
-        slip.items.receives.push(items);
-        $('#mdlItems').modal('hide');
-      }
-    } else {
-      items.id = $('#slPayItems').val();
-      if (!items.id) {
-        alert('กรุณาเลือกรายการ');
-      } else {
-        items.name = $('#slPayItems > option:selected').text();
-        items.type = 2;
-        slip.items.payments.push(items);
-        $('#mdlItems').modal('hide');
-      }
-    }
+    
   });
 
   $('#txtTotalReceive').text('0.00');
@@ -202,8 +204,8 @@ $(function () {
   $(document).on('click', 'button[data-action="btnReceiveRemove"]', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-
     var idx = _.findIndex(slip.items.receives, {id: id});
+    
     if (idx >= 0) {
       slip.items.receives.splice(idx, 1);
       slip.processItems();
@@ -214,8 +216,9 @@ $(function () {
   $(document).on('click', 'button[data-action="btnPaymentRemove"]', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-
+    
     var idx = _.findIndex(slip.items.payments, {id: id});
+    
     if (idx >= 0) {
       slip.items.payments.splice(idx, 1);
       slip.processItems();
@@ -272,7 +275,6 @@ $(function () {
         })
         .success(function (data) {
           if (data.ok) {
-            alert('บันทึกรายการเสร็จเรียบร้อยแล้ว');
             location.href = '/admin/slip';
           } else {
             alert('เกิดข้อผิดพลาด: ' + JSON.stringify(data.msg));

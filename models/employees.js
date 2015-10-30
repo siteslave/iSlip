@@ -111,7 +111,7 @@ module.exports = {
       .then(function (rows) {
         q.resolve(rows);
       })
-      .cacth(function (err) {
+      .catch(function (err) {
         q.reject(err);
       });
       
@@ -126,7 +126,7 @@ module.exports = {
       .then(function () {
         q.resolve();
       })
-      .cacth(function (err) {
+      .catch(function (err) {
         q.reject(err);
       });
       
@@ -141,7 +141,7 @@ module.exports = {
       .then(function () {
         q.resolve();
       })
-      .cacth(function (err) {
+      .catch(function (err) {
         q.reject(err);
       });
       
