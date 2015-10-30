@@ -50,7 +50,7 @@ $(function () {
             html += '<td style="text-align: right;"><span class="text-success"><strong>'+ bMoney +'<strong></span></td>';
           }
 
-          html += '<td style="text-align: center;"><a href="/prints/'+v.id+'" target="_blank" class="btn btn-default btn-raised btn-sm"><i class="fa fa-print"></i></a></td></tr>';
+          html += '<td style="text-align: center;"><a href="/prints/'+v.id+'" class="btn btn-default btn-raised btn-sm"><i class="fa fa-print"></i></a></td></tr>';
 
           $table.append(html);
         })

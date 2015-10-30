@@ -35,7 +35,7 @@ $(function() {
           '<li><a href="/admin/slip/edit/'+v.id+'"><i class="fa fa-fw fa-edit"></i> แก้ไขรายการ</a></li>' +
           '<li><a href="javascript:void(0)" data-action="btnRemove" data-id="'+v.id+'"><i class="fa fa-fw fa-trash-o"></i> ลบรายการ</a></li>' +
           '<li class="divider"></li>' +
-          '<li><a href="javascript:void(0)" data-action="btnPrint" data-id="'+v.id+'"><i class="fa fa-fw fa-print"></i> พิมพ์สลิปเงินเดือน</a></li>' +
+          '<li><a href="/prints/'+v.id+'" data-id="'+v.id+'"><i class="fa fa-fw fa-print"></i> พิมพ์สลิปเงินเดือน</a></li>' +
           '</ul>' +
           '</div></td>' +
           '</tr>';
@@ -51,7 +51,7 @@ $(function() {
     e.preventDefault();
     var id = $(this).data('id');
 
-    window.open('/prints/' + id, '_blank');
+    window.open('/prints/' + id);
   });
 
   slip.all = function() {
