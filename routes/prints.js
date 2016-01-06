@@ -114,45 +114,5 @@ router.get('/:id', function (req, res, next) {
   })
 });
 
-router.get('/pdf', function(req, res, next) {
-  var fs = require('fs');
-  var pdf = require('html-pdf');
-
-  var json = {
-    fullname: 'นายสถิตย์  เรียนพิศ',
-    items: [
-      {id: 1, name: 'Apple'},
-      {id: 2, name: 'Banana'},
-      {id: 3, name: 'Orange'},
-    ]
-  };
-
-  gulp.task('html', function (cb) {
-    return gulp.src('./templates/slip.jade')
-      .pipe(data(function () {
-        return json;
-      }))
-      .pipe(jade())
-      .pipe(gulp.dest('./templates'));
-      cb();
-  });
-
-  gulp.task('pdf', ['html'], function () {
-    var html = fs.readFileSync('./templates/slip.html', 'utf8')
-    var options = {
-      format: 'A4'
-    };
-
-    pdf.create(html, options).toFile('./public/pdf/slip.pdf', function(err, resp) {
-      if (err) return console.log(err);
-      res.send({ok: true, file: resp}) // { filename: '/app/businesscard.pdf' }
-    });
-  });
-
-  gulp.start('pdf');
-
-});
-
-
 
 module.exports = router;

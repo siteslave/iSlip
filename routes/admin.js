@@ -479,34 +479,23 @@ router.get('/departments', function(req, res, next) {
 });
 
 router.post('/departments', function(req, res, next) {
-  if (req.body.name) {
-    var db = req.db;
-    console.log(req.body);
 
-    department.checkDuplicated(db, req.body.name)
-      .then(function(total) {
-        if (total) {
-          res.send({
-            ok: false,
-            msg: 'รายการซ้ำ'
-          })
-        } else {
-          if (req.body.id) {
-            console.log('update');
-            department.update(db, req.body.id, req.body.name)
-              .then(function() {
-                res.send({
-                  ok: true
-                });
-              }, function(err) {
-                console.log(err);
-                res.send({
-                  ok: false,
-                  msg: err
-                });
-              });
+  var name = req.body.name;
+  var id = req.body.id;
+  var db = req.db;
+
+  if (name) {
+
+    if (id) {
+      department.checkDuplicatedUpdate(db, name, id)
+        .then(function (total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
           } else {
-            department.save(db, req.body.name)
+            department.update(db, id, name)
               .then(function() {
                 res.send({
                   ok: true
@@ -519,15 +508,44 @@ router.post('/departments', function(req, res, next) {
                 });
               });
           }
-
-        }
-      }, function(err) {
-        console.log(err);
-        res.send({
-          ok: false,
-          msg: err
+        }, function (err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
+        })
+    } else {
+      department.checkDuplicated(db, name)
+        .then(function(total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
+          } else {
+            department.save(db, name)
+              .then(function() {
+                res.send({
+                  ok: true
+                });
+              }, function(err) {
+                console.log(err);
+                res.send({
+                  ok: false,
+                  msg: err
+                });
+              });
+          }
+        }, function(err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
         });
-      });
+    }
+
   }
 
 });
@@ -595,33 +613,22 @@ router.get('/positions', function(req, res, next) {
 });
 
 router.post('/positions', function(req, res, next) {
-  if (req.body.name) {
-    var db = req.db;
-    console.log(req.body);
-    positions.checkDuplicated(db, req.body.name)
-      .then(function(total) {
-        if (total) {
-          res.send({
-            ok: false,
-            msg: 'รายการซ้ำ'
-          })
-        } else {
-          if (req.body.id) {
-            console.log('update');
-            positions.update(db, req.body.id, req.body.name)
-              .then(function() {
-                res.send({
-                  ok: true
-                });
-              }, function(err) {
-                console.log(err);
-                res.send({
-                  ok: false,
-                  msg: err
-                });
-              });
+
+  var db = req.db;
+  var name = req.body.name;
+  var id = req.body.id;
+
+  if (name) {
+    if (id) {
+      positions.checkUpdateDuplicated(db, id, name)
+        .then(function (total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
           } else {
-            positions.save(db, req.body.name)
+            positions.update(db, id, name)
               .then(function() {
                 res.send({
                   ok: true
@@ -634,15 +641,44 @@ router.post('/positions', function(req, res, next) {
                 });
               });
           }
-
-        }
-      }, function(err) {
-        console.log(err);
-        res.send({
-          ok: false,
-          msg: err
+        }, function (err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
+        })
+    } else {
+      positions.checkDuplicated(db, name)
+        .then(function(total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
+          } else {
+            positions.save(db, name)
+              .then(function() {
+                res.send({
+                  ok: true
+                });
+              }, function(err) {
+                console.log(err);
+                res.send({
+                  ok: false,
+                  msg: err
+                });
+              });
+          }
+        }, function(err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
         });
-      });
+    }
+
   } else {
     res.send({
       ok: false,
@@ -715,20 +751,21 @@ router.get('/banks', function(req, res, next) {
 });
 
 router.post('/banks', function(req, res, next) {
-  if (req.body.name) {
-    var db = req.db;
-    console.log(req.body);
-    banks.checkDuplicated(db, req.body.name)
-      .then(function(total) {
-        if (total) {
-          res.send({
-            ok: false,
-            msg: 'รายการซ้ำ'
-          })
-        } else {
-          if (req.body.id) {
-            console.log('update');
-            banks.update(db, req.body.id, req.body.name)
+  var db = req.db;
+  var name = req.body.name;
+  var id = req.body.id;
+
+  if (name) {
+    if (id) {
+      banks.checkUpdateDuplicated(db, id, name)
+        .then(function (total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
+          } else {
+            banks.update(db, id, name)
               .then(function() {
                 res.send({
                   ok: true
@@ -740,6 +777,23 @@ router.post('/banks', function(req, res, next) {
                   msg: err
                 });
               });
+          }
+        }, function (err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
+        })
+    } else {
+
+      banks.checkDuplicated(db, req.body.name)
+        .then(function(total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
           } else {
             banks.save(db, req.body.name)
               .then(function() {
@@ -754,15 +808,16 @@ router.post('/banks', function(req, res, next) {
                 });
               });
           }
-
-        }
-      }, function(err) {
-        console.log(err);
-        res.send({
-          ok: false,
-          msg: err
+        }, function(err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
         });
-      });
+
+    }
+
   } else {
     res.send({
       ok: false,
@@ -835,31 +890,23 @@ router.get('/items/receive', function(req, res, next) {
 });
 
 router.post('/items/receive', function(req, res, next) {
-  if (req.body.name) {
-    var db = req.db;
-    items.checkDuplicated(db, req.body.name, 1)
-      .then(function(total) {
-        if (total) {
-          res.send({
-            ok: false,
-            msg: 'รายการซ้ำ'
-          })
-        } else {
-          if (req.body.id) {
-            items.update(db, req.body.id, req.body.name)
-              .then(function() {
-                res.send({
-                  ok: true
-                });
-              }, function(err) {
-                console.log(err);
-                res.send({
-                  ok: false,
-                  msg: err
-                });
-              });
+
+  var db = req.db;
+  var name = req.body.name;
+  var id = req.body.id;
+
+  if (name) {
+
+    if (id) {
+      items.checkUpdateDuplicated(db, id, name, 1)
+        .then(function (total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
           } else {
-            item.save(db, req.body.name, 1)
+            items.update(db, id, name)
               .then(function() {
                 res.send({
                   ok: true
@@ -872,15 +919,43 @@ router.post('/items/receive', function(req, res, next) {
                 });
               });
           }
-
-        }
-      }, function(err) {
-        console.log(err);
-        res.send({
-          ok: false,
-          msg: err
+        }, function (err) {
+          res.send({
+            ok: false,
+            msg: err
+          });
+        })
+    } else {
+      items.checkDuplicated(db, id, name, 1)
+        .then(function(total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
+          } else {
+            items.save(db, name, 1)
+              .then(function() {
+                res.send({
+                  ok: true
+                });
+              }, function(err) {
+                console.log(err);
+                res.send({
+                  ok: false,
+                  msg: err
+                });
+              });
+          }
+        }, function(err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
         });
-      });
+    }
+
   } else {
     res.send({
       ok: false,
@@ -953,31 +1028,23 @@ router.get('/items/pay', function(req, res, next) {
 });
 
 router.post('/items/pay', function(req, res, next) {
-  if (req.body.name) {
-    var db = req.db;
-    items.checkDuplicated(db, req.body.name, 2)
-      .then(function(total) {
-        if (total) {
-          res.send({
-            ok: false,
-            msg: 'รายการซ้ำ'
-          })
-        } else {
-          if (req.body.id) {
-            items.update(db, req.body.id, req.body.name)
-              .then(function() {
-                res.send({
-                  ok: true
-                });
-              }, function(err) {
-                console.log(err);
-                res.send({
-                  ok: false,
-                  msg: err
-                });
-              });
+
+  var db = req.db;
+  var name = req.body.name;
+  var id = req.body.id;
+
+  if (name) {
+
+    if (id) {
+      items.checkUpdateDuplicated(db, id, name, 2)
+        .then(function (total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
           } else {
-            items.save(db, req.body.name, 2)
+            items.update(db, id, name)
               .then(function() {
                 res.send({
                   ok: true
@@ -990,15 +1057,43 @@ router.post('/items/pay', function(req, res, next) {
                 });
               });
           }
-
-        }
-      }, function(err) {
-        console.log(err);
-        res.send({
-          ok: false,
-          msg: err
+        }, function (err) {
+          res.send({
+            ok: false,
+            msg: err
+          });
+        })
+    } else {
+      items.checkDuplicated(db, id, name, 2)
+        .then(function(total) {
+          if (total) {
+            res.send({
+              ok: false,
+              msg: 'รายการซ้ำ'
+            })
+          } else {
+            items.save(db, name, 2)
+              .then(function() {
+                res.send({
+                  ok: true
+                });
+              }, function(err) {
+                console.log(err);
+                res.send({
+                  ok: false,
+                  msg: err
+                });
+              });
+          }
+        }, function(err) {
+          console.log(err);
+          res.send({
+            ok: false,
+            msg: err
+          });
         });
-      });
+    }
+
   } else {
     res.send({
       ok: false,

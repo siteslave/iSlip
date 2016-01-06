@@ -14,9 +14,13 @@ $(function () {
           '<td>'+ v.position_name +'</td>' +
           '<td>'+ v.department_name +'</td>' +
           // '<td>'+ v.bank_name +'</td>' +
-          '<td><div class="btn-group">' +
-          '<button class="btn btn-default btn-xs" data-action="edit" data-id="'+v.employee_id+'" data-position="'+v.position_id+'" data-department="'+v.department_id+'" data-bank="'+v.bank_id+'" data-account="'+v.account_no+'" data-fullname="'+v.fullname+'" data-cid="'+v.cid+'"><i class="fa fa-edit"></i></button>'+
-          '<button class="btn btn-danger btn-xs" data-action="remove" data-id="'+v.employee_id+'"><i class="fa fa-trash-o"></i></button>'+
+          '<td style="text-align: center;"><div class="btn-group btn-group-sm">'+
+          '<a href="#" class="btn btn-warning"><i class="fa fa-reorder"></i></a>' +
+          '<a href="#" data-target="#" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>' +
+          '<ul class="dropdown-menu dropdown-menu-right">' +
+          '<li><a href="#" data-action="edit" data-id="'+v.employee_id+'" data-position="'+v.position_id+'" data-department="'+v.department_id+'" data-bank="'+v.bank_id+'" data-account="'+v.account_no+'" data-fullname="'+v.fullname+'" data-cid="'+v.cid+'"><i class="fa fa-edit"></i> แก้ไข</a></li>' +
+          '<li><a href="#" data-action="remove" data-id="'+v.employee_id+'"><i class="fa fa-trash-o"></i> ลบรายการ</a></li>' +
+          '</ul>' +
           '</div></td>' +
         '</tr>';
 
@@ -148,7 +152,7 @@ $(function () {
   });
 
   //edit
-  $(document).on('click', 'button[data-action="edit"]', function (e) {
+  $(document).on('click', 'a[data-action="edit"]', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
     var fullname = $(this).data('fullname');
@@ -171,11 +175,11 @@ $(function () {
     });
 
   });
-  
-  $(document).on('click', 'button[data-action="remove"]', function (e) {
+
+  $(document).on('click', 'a[data-action="remove"]', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
-    
+
     if (confirm('คุณต้องการลบรายการนี้ ใช่หรือไม่?')) {
       $.ajax({
         url: '/admin/employees/' + id,

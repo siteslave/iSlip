@@ -12,7 +12,7 @@ $(function() {
         var html = '<tr>' +
           '<td>' + (i + 1) + '</td>' +
           '<td>' + v.position_name + '</td>' +
-          '<td style="text-align: right;"><div class="btn-group">' +
+          '<td style="text-align: right;"><div class="btn-group btn-group-sm">' +
           '<button class="btn btn-default btn-md" data-action="edit" data-name="' + v.position_name + '" data-id="' + v.position_id + '"><i class="fa fa-edit"></i></button>' +
           '<button class="btn btn-danger btn-md" data-action="remove" data-id="' + v.position_id + '"><i class="fa fa-trash-o"></i></button>' +
           '</div></td>' +
